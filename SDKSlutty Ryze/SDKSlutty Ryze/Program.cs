@@ -1,6 +1,5 @@
 ﻿using System;
 using LeagueSharp.SDK.Core.Events;
-using SDKSlutty_Ryze;
 
 namespace SDKSlutty_Ryze
 {
