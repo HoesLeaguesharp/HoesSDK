@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 
 using LeagueSharp;
@@ -21,9 +21,15 @@ namespace SDKSlutty_Ryze
         public const string Menuname = "Slutty Ryze";
         public static Menu Config;
         public static Spell Q, W, E, R, Qn;
-//        private static SpellSlot Ignite;
+        // private static SpellSlot Ignite;
 
-        private static readonly Obj_AI_Hero Player = ObjectManager.Player;
+        public static Obj_AI_Hero Player
+        {
+            get
+            {
+                return ObjectManager.Player;
+            }
+        }
 
         public static int[] abilitySequence;
         public static int qOff = 0, wOff = 0, eOff = 0, rOff = 0;
@@ -43,6 +49,9 @@ namespace SDKSlutty_Ryze
             Qn.SetSkillshot(0.26f, 50f, 1700f, false, SkillshotType.SkillshotLine);
 
             abilitySequence = new int[] {1, 2, 3, 1, 1, 4, 1, 2, 1, 2, 4, 3, 2, 2, 3, 4, 3, 3};
+
+            Config = new Menu("Slutty Ryze", "Slutty Ryze", true);
+            Bootstrap.Init(new string[] { });
 
             var comboMenu = new Menu("combo", "Combos");
             {
@@ -65,8 +74,9 @@ namespace SDKSlutty_Ryze
                 laneMenu.Add(new MenuBool("useRl", "Use R When X Minions", true));
                 laneMenu.Add(new MenuBool("spellblock", "Don't Use Spells when to pop passive"));
 
-                Config.Add(comboMenu);
+                Config.Add(laneMenu);
             }
+
             Config.Attach();
 
             Game.OnUpdate += OnUpdate;
