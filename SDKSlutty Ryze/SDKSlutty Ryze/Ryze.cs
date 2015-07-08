@@ -43,7 +43,7 @@ namespace SDKSlutty_Ryze
             Qn = new Spell(SpellSlot.Q, 865);
             W = new Spell(SpellSlot.W, 585);
             E = new Spell(SpellSlot.E, 585);
-            R = new Spell(SpellSlot.R);
+            R = new Spell(SpellSlo  t.R);
 
             Q.SetSkillshot(0.26f, 50f, 1700f, true, SkillshotType.SkillshotLine);
             Qn.SetSkillshot(0.26f, 50f, 1700f, false, SkillshotType.SkillshotLine);
