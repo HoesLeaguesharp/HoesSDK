@@ -51,7 +51,7 @@ namespace SDKSlutty_Ryze
             abilitySequence = new int[] {1, 2, 3, 1, 1, 4, 1, 2, 1, 2, 4, 3, 2, 2, 3, 4, 3, 3};
 
             Config = new Menu("Slutty Ryze", "Slutty Ryze", true);
-            Bootstrap.Init(new string[] { });
+            LeagueSharp.SDK.Core.Bootstrap.Init(null); //This will be a loader functionality later on
 
             var comboMenu = new Menu("combo", "Combos");
             {
