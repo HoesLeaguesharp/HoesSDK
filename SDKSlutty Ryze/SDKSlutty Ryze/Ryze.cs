@@ -28,11 +28,14 @@ namespace SDKSlutty_Ryze
         public static Menu Config;
         public static Spell Q, W, E, R, Qn;
 
+
+        /*
         public static Items.Item HealthPotion = new Items.Item(2003, 0);
         public static Items.Item CrystallineFlask = new Items.Item(2041, 0);
         public static Items.Item ManaPotion = new Items.Item(2004, 0);
         public static Items.Item BiscuitofRejuvenation = new Items.Item(2010, 0);
         public static Items.Item SeraphsEmbrace = new Items.Item(3040, 0);
+         */
         // private static SpellSlot Ignite;
 
         public static Obj_AI_Hero Player
@@ -71,14 +74,18 @@ namespace SDKSlutty_Ryze
                 combodefaultMenu.Add(new MenuBool("useR", "Use R"));
                 combodefaultMenu.Add(new MenuBool("useRww", "Use R Only when Rooted", true));
 
+                comboMenu.Add(combodefaultMenu);
             }
+
             var combooptionsMenu = new Menu("combooptions", "Combo Options");
             {
                 combooptionsMenu.Add(new MenuBool("AAblock", "Auto Attack Block", true));
                 combooptionsMenu.Add(new MenuList<string>("comboooptions", "Combo Mode", new[] { "Stable", "Beta Combo" }));
+
+                comboMenu.Add(combooptionsMenu);
             }
-            comboMenu.Add(combodefaultMenu);
-            comboMenu.Add(combooptionsMenu);
+
+
             Config.Add(comboMenu);
 
             var hybridMenu = new Menu("hybrid", "Hybrid");
@@ -110,11 +117,8 @@ namespace SDKSlutty_Ryze
                // laneMenu.Add(new MenuSlider("useRl", "Use R When X Minions", 1,3,20));
                 laneMenu.Add(new MenuBool("spellblock", "Don't Use Spells when to pop passive"));
 
-            }
+                clearMenu.Add(laneMenu);
 
-            var jungleMenu = new Menu("jungleclear", "Jungle Clear (V)");
-            {
-                // 
             }
 
             var lasthitMenu = new Menu("lasthit", "Last Hit (X)");
@@ -122,9 +126,12 @@ namespace SDKSlutty_Ryze
                 lasthitMenu.Add(new MenuBool("useQ2l", "Use Q Last hit", true));
                 lasthitMenu.Add(new MenuBool("useW2l", "Use W Last hit", true));
                 lasthitMenu.Add(new MenuBool("useE2l", "Use E Last Hit", true));
+
+                clearMenu.Add(lasthitMenu);
             }
 
-
+            Config.Add(clearMenu);
+            /*
             var potionMenu = new Menu("autoP", "Auto Potions");
             {
                 potionMenu.Add(new MenuBool("autoPO", "Auto Health Potion", true));
@@ -140,14 +147,11 @@ namespace SDKSlutty_Ryze
                 potionMenu.Add(new MenuBool("flask", "Auto Flask", true));
                 potionMenu.Add(new MenuSlider("fSlider", "Minimum %Health for flask", 30));
             }
+            Config.Add(potionMenu);
+            */
 
 
-            clearMenu.Add(laneMenu);
-            clearMenu.Add(jungleMenu);
-            clearMenu.Add(lasthitMenu);
-            Config.Add(clearMenu);
-
-            var miscMenu = new Menu("nisc", "Miscellaneous");
+            var miscMenu = new Menu("misc", "Miscellaneous");
             {
                 miscMenu.Add(new MenuBool("useW2I", "Interrupt With W", true));
                 miscMenu.Add(new MenuBool("useQW2D", "Use W/Q On Dashing", true));
@@ -169,8 +173,8 @@ namespace SDKSlutty_Ryze
             Config.Attach();
             Drawing.OnDraw += OnDraw;
             Game.OnUpdate += OnUpdate;
-           // Dash.OnDash += Unit_Ondash;
            InterruptableSpell.OnInterruptableTarget += Interruptable;
+            // Dash.OnDash += Unit_Ondash;
         }
         /*
         private static void Unit_Ondash(Obj_AI_Base sender, Dash.DashArgs args)
@@ -338,25 +342,10 @@ namespace SDKSlutty_Ryze
 
         private static void OnUpdate(EventArgs args)
         {
-            LevelUpSpells();
-            Potion();
-            // Obj_AI_Hero target = TargetSelector.GetTarget(Q.Range, DamageType.Magical);
+
             switch (Orbwalker.ActiveMode)
             {
                 case OrbwalkerMode.Orbwalk:
-                    /*
-                    if (((Player.Distance(target) > 440)
-                         || (Q.IsReady() || E.IsReady() || W.IsReady()))
-                        && target.Health > (Player.GetAutoAttackDamage(target) * 3))
-                    {
-       
-                    }
-                    else
-                    {
-                        Orbwalker.CanAttack.SetFlags(true);
-                    }
-                     */
-
                     Combo();
                     break;
 
@@ -371,6 +360,8 @@ namespace SDKSlutty_Ryze
                     Hybrid();
                     break;
             }
+            LevelUpSpells();
+            // Potion();
         }
 
         private static int GetPassiveBuff
@@ -1087,7 +1078,7 @@ namespace SDKSlutty_Ryze
                 }
             }
         }
-
+        /*
         private static void Potion()
         {
 
@@ -1148,6 +1139,7 @@ namespace SDKSlutty_Ryze
                 CrystallineFlask.Cast();
             }
         }
+         */
 
         private static void Hybrid()
         {
