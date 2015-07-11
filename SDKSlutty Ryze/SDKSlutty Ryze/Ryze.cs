@@ -161,6 +161,13 @@ namespace SDKSlutty_Ryze
                 Config.Add(miscMenu);
             }
 
+            /*
+            var passiveMenu = new Menu("passive", "Passive Stack");
+            {
+                passiveMenu.Add(new MenuBool("autoPassive", "Passive Stack"))
+            }
+             */
+
             var drawMenu = new Menu("draw", "Drawings");
             {
                 drawMenu.Add(new MenuBool("qDraw", "Draw Q", true));
@@ -342,10 +349,21 @@ namespace SDKSlutty_Ryze
 
         private static void OnUpdate(EventArgs args)
         {
-
+            Orbwalker.Attack = true;
+            Obj_AI_Hero target = TargetSelector.GetTarget(Q.Range, DamageType.Magical);
             switch (Orbwalker.ActiveMode)
             {
                 case OrbwalkerMode.Orbwalk:
+                    if (((Player.Distance(target) > 440)
+                         || (Q.IsReady() || E.IsReady() || W.IsReady()))
+                        && target.Health > (Player.GetAutoAttackDamage(target) * 3))
+                    {
+                        Orbwalker.Attack = false;
+                    }
+                    else
+                    {
+                        Orbwalker.Attack = true;
+                    }
                     Combo();
                     break;
 
@@ -361,6 +379,7 @@ namespace SDKSlutty_Ryze
                     break;
             }
             LevelUpSpells();
+           // AutoPassive();
             // Potion();
         }
 
@@ -422,8 +441,8 @@ namespace SDKSlutty_Ryze
 
                             if (rSpell)
                             {
-                                if (target.IsValidTarget(W.Range)
-                                    && target.Health > Player.GetSpellDamage(target, SpellSlot.Q) + Player.GetSpellDamage(target, SpellSlot.E))
+                                if (target.IsValidTarget(W.Range))
+                                    // && target.Health > Player.GetSpellDamage(target, SpellSlot.Q) + Player.GetSpellDamage(target, SpellSlot.E))
                                 {
                                     if (rwwSpell && target.HasBuff("RyzeW"))
                                     {
@@ -499,8 +518,8 @@ namespace SDKSlutty_Ryze
                             if (R.IsReady()
                                 && rSpell)
                             {
-                                if (target.IsValidTarget(W.Range)
-                                    && target.Health > Player.GetSpellDamage(target, SpellSlot.Q) + Player.GetSpellDamage(target, SpellSlot.E))
+                                if (target.IsValidTarget(W.Range))
+                                   // && target.Health > Player.GetSpellDamage(target, SpellSlot.Q) + Player.GetSpellDamage(target, SpellSlot.E))
                                {
                                    if (rwwSpell && target.HasBuff("RyzeW")
                                        && (Q.IsReady() || W.IsReady() || E.IsReady()))
@@ -540,8 +559,8 @@ namespace SDKSlutty_Ryze
                            if (R.IsReady()
                                && rSpell)
                            {
-                               if (target.IsValidTarget(W.Range)
-                                   && target.Health > Player.GetSpellDamage(target, SpellSlot.Q) + Player.GetSpellDamage(target, SpellSlot.E))
+                               if (target.IsValidTarget(W.Range))
+                                 //  && target.Health > Player.GetSpellDamage(target, SpellSlot.Q) + Player.GetSpellDamage(target, SpellSlot.E))
                                 {
                                     if (rwwSpell && target.HasBuff("RyzeW"))
                                     {
@@ -599,8 +618,8 @@ namespace SDKSlutty_Ryze
                             if (R.IsReady()
                                 && rSpell)
                             {
-                                if (target.IsValidTarget(W.Range)
-                                    && target.Health > Player.GetSpellDamage(target, SpellSlot.Q) + Player.GetSpellDamage(target, SpellSlot.E))
+                                if (target.IsValidTarget(W.Range))
+                                  //  && target.Health > Player.GetSpellDamage(target, SpellSlot.Q) + Player.GetSpellDamage(target, SpellSlot.E))
                                 {
                                     if (rwwSpell && target.HasBuff("RyzeW"))
                                     {
@@ -671,8 +690,8 @@ namespace SDKSlutty_Ryze
 
                             if (rSpell)
                             {
-                                if (target.IsValidTarget(W.Range)
-                                    && target.Health > Player.GetSpellDamage(target, SpellSlot.Q) + Player.GetSpellDamage(target, SpellSlot.E))
+                                if (target.IsValidTarget(W.Range))
+                                   // && target.Health > Player.GetSpellDamage(target, SpellSlot.Q) + Player.GetSpellDamage(target, SpellSlot.E))
                                 {
                                     if (rwwSpell && target.HasBuff("RyzeW"))
                                     {
@@ -807,8 +826,8 @@ namespace SDKSlutty_Ryze
                             if (R.IsReady()
                                 && rSpell)
                             {
-                                if (target.IsValidTarget(W.Range)
-                                    && target.Health > Player.GetSpellDamage(target, SpellSlot.Q) + Player.GetSpellDamage(target, SpellSlot.E))
+                                if (target.IsValidTarget(W.Range))
+                                  //  && target.Health > Player.GetSpellDamage(target, SpellSlot.Q) + Player.GetSpellDamage(target, SpellSlot.E))
                                 {
                                     if (rwwSpell && target.HasBuff("RyzeW"))
                                     {
@@ -849,8 +868,8 @@ namespace SDKSlutty_Ryze
                             if (R.IsReady()
                                 && rSpell)
                             {
-                                if (target.IsValidTarget(W.Range)
-                                    && target.Health > Player.GetSpellDamage(target, SpellSlot.Q) + Player.GetSpellDamage(target, SpellSlot.E))
+                                if (target.IsValidTarget(W.Range))
+                                  //  && target.Health > Player.GetSpellDamage(target, SpellSlot.Q) + Player.GetSpellDamage(target, SpellSlot.E))
                                 {
                                     if (rwwSpell && target.HasBuff("RyzeW"))
                                     {
@@ -889,8 +908,8 @@ namespace SDKSlutty_Ryze
                             if (R.IsReady()
                                 && rSpell)
                             {
-                                if (target.IsValidTarget(W.Range)
-                                    && target.Health > Player.GetSpellDamage(target, SpellSlot.Q) + Player.GetSpellDamage(target, SpellSlot.E))
+                                if (target.IsValidTarget(W.Range))
+                                 //   && target.Health > Player.GetSpellDamage(target, SpellSlot.Q) + Player.GetSpellDamage(target, SpellSlot.E))
                                 {
                                     if (rwwSpell && target.HasBuff("RyzeW"))
                                     {
@@ -930,9 +949,9 @@ namespace SDKSlutty_Ryze
                             if (R.IsReady()
                                 && rSpell)
                             {
-                                if (target.IsValidTarget(W.Range)
-                                    && Player.GetSpellDamage(target, SpellSlot.Q) + Player.GetSpellDamage(target, SpellSlot.E) < target.Health
-                                    && target.Health > Player.GetSpellDamage(target, SpellSlot.Q) + Player.GetSpellDamage(target, SpellSlot.E))
+                                if (target.IsValidTarget(W.Range))
+                                   // && Player.GetSpellDamage(target, SpellSlot.Q) + Player.GetSpellDamage(target, SpellSlot.E) < target.Health
+                                   // && target.Health > Player.GetSpellDamage(target, SpellSlot.Q) + Player.GetSpellDamage(target, SpellSlot.E))
                                 {
                                     if (rwwSpell && target.HasBuff("RyzeW"))
                                     {
@@ -1193,5 +1212,45 @@ namespace SDKSlutty_Ryze
                 }
             }
         }
+
+        /*
+        private static void AutoPassive()
+        {
+
+            var minions = MinionManager.GetMinions(
+ObjectManager.Player.ServerPosition, Q.Range, MinionTypes.All, MinionTeam.Enemy,
+MinionOrderTypes.MaxHealth);
+            if (Player.Mana < Config.Item("ManapSlider").GetValue<Slider>().Value)
+                return;
+
+            if (Player.IsRecalling()
+                || minions.Count >= 1)
+                return;
+
+            Obj_AI_Hero target = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Magical);
+
+            if (target != null)
+            {
+                return;
+            }
+
+            var stackSliders = Config.Item("stackSlider").GetValue<Slider>().Value;
+            if (Player.IsRecalling() || Player.InFountain())
+            {
+                return;
+            }
+
+            if (GetPassiveBuff >= stackSliders)
+            {
+                return;
+            }
+            if (Environment.TickCount - Q.LastCastAttemptT >= 9000
+                && Q.IsReady())
+            {
+                Q.Cast(Game.CursorPos);
+            }
+
+        }       
+         */
     }
 }
